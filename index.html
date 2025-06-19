@@ -280,6 +280,27 @@ function updateFretboard(){
 
 updateScaleOptions();
 updateFretboard();
+
+document.getElementById("scale-select").addEventListener("change", updateFretboardImage);
+document.getElementById("key-select").addEventListener("change", updateFretboardImage);
+document.getElementById("type-select").addEventListener("change", updateFretboardImage);
+
+function updateFretboardImage() {
+  const key = document.getElementById("key-select").value;
+  const type = document.getElementById("type-select").value;
+  const scale = document.getElementById("scale-select").value;
+  const mapKey = `${key}-${type}-${scale}`;
+  const imageName = fretboardImageMap[mapKey];
+  const imgEl = document.getElementById("fretboard-image");
+
+  if (imageName) {
+    imgEl.src = "images/" + imageName;
+  } else {
+    imgEl.src = "";
+    console.warn("画像が見つかりません:", mapKey);
+  }
+}
+
 </script>
 </body>
 </html>
